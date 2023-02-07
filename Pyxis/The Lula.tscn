@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://The Lula.gd" type="Script" id=1]
+[ext_resource path="res://Enemy/the lula2.png" type="Texture" id=2]
+[ext_resource path="res://Enemy/the lula.png" type="Texture" id=3]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 30, 224 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 10, 224 )
+
+[node name="The Lula" type="KinematicBody2D"]
+script = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -62.5, 9.53674e-06 )
+scale = Vector2( 1.87333, 1.62909 )
+frames = SubResource( 1 )
+frame = 1
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+modulate = Color( 0.0627451, 0.054902, 0.054902, 1 )
+position = Vector2( 41, 0 )
+shape = SubResource( 3 )

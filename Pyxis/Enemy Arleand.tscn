@@ -1,0 +1,84 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Enemy/Arleand 1.png" type="Texture" id=1]
+[ext_resource path="res://Enemy/Arleand 2.png" type="Texture" id=2]
+[ext_resource path="res://Enemy/Arleand 3.png" type="Texture" id=3]
+[ext_resource path="res://Enemy/Arleand 4.png" type="Texture" id=4]
+[ext_resource path="res://Enemy/Arleand charging 2.png" type="Texture" id=5]
+[ext_resource path="res://Enemy/Arleand charging 1.png" type="Texture" id=6]
+[ext_resource path="res://Enemy/Arleand charging 3png.png" type="Texture" id=7]
+[ext_resource path="res://Enemy Arleand.gd" type="Script" id=8]
+[ext_resource path="res://Death_Animation/Enemy/Die 1.png" type="Texture" id=9]
+[ext_resource path="res://Death_Animation/Enemy/Die 2.png" type="Texture" id=10]
+[ext_resource path="res://Death_Animation/Enemy/Die 3.png" type="Texture" id=11]
+[ext_resource path="res://arleand hitbox.gd" type="Script" id=12]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "Still",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 4.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
+"loop": false,
+"name": "Death",
+"speed": 6.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "charge",
+"speed": 8.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 64, 5 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 4, 12 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 6, 15 )
+
+[node name="KinematicBody2D" type="KinematicBody2D"]
+collision_mask = 513
+script = ExtResource( 8 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "Walk"
+playing = true
+
+[node name="Vision 1" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vision 1"]
+modulate = Color( 0.32549, 0.0941176, 0.0941176, 1 )
+position = Vector2( 70, 0 )
+shape = SubResource( 2 )
+
+[node name="Vision 2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vision 2"]
+modulate = Color( 0.32549, 0.0941176, 0.0941176, 1 )
+position = Vector2( -70, 0 )
+shape = SubResource( 2 )
+
+[node name="floor_check" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 18 )
+collision_mask = 2
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 3 )
+shape = SubResource( 3 )
+
+[node name="hitbox" type="Area2D" parent="."]
+script = ExtResource( 12 )
+
+[node name="dmg_player" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource( 4 )

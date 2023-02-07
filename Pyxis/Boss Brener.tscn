@@ -1,0 +1,118 @@
+[gd_scene load_steps=28 format=2]
+
+[ext_resource path="res://Enemy/Boss 1 - Brener - Fall 1.png" type="Texture" id=1]
+[ext_resource path="res://Enemy/Boss 1 - Brener - Jump 2.png" type="Texture" id=2]
+[ext_resource path="res://Enemy/Boss 1 - Brener - Walk 4.png" type="Texture" id=3]
+[ext_resource path="res://Enemy/Boss 1 - Brener - Jump 1.png" type="Texture" id=4]
+[ext_resource path="res://Enemy/Boss 1 - Brener - Walk 3.png" type="Texture" id=5]
+[ext_resource path="res://Enemy/Boss 1 - Brener - Fall 2.png" type="Texture" id=6]
+[ext_resource path="res://Enemy/Boss 1 - Brener.png" type="Texture" id=7]
+[ext_resource path="res://Enemy/Boss 1 - Brener - Walk 1.png" type="Texture" id=8]
+[ext_resource path="res://Enemy/Boss 1 - Brener - Walk 2.png" type="Texture" id=9]
+[ext_resource path="res://Boss Brener.gd" type="Script" id=10]
+[ext_resource path="res://player_die_boss.gd" type="Script" id=11]
+[ext_resource path="res://Enemy/Boss 1 - Brener - Stunned.png" type="Texture" id=12]
+[ext_resource path="res://take_dmg.gd" type="Script" id=13]
+[ext_resource path="res://Enemy/Boss 1 - Brener - DMG.png" type="Texture" id=14]
+[ext_resource path="res://Enemy/Boss 1 - Brener - Death 4.png" type="Texture" id=15]
+[ext_resource path="res://Enemy/Boss 1 - Brener - Death 3.png" type="Texture" id=16]
+[ext_resource path="res://Enemy/Boss 1 - Brener - Death 5.png" type="Texture" id=17]
+[ext_resource path="res://Enemy/Boss 1 - Brener - Death 10.png" type="Texture" id=18]
+[ext_resource path="res://Enemy/Boss 1 - Brener - Death 6.png" type="Texture" id=19]
+[ext_resource path="res://Enemy/Boss 1 - Brener - Death 8.png" type="Texture" id=20]
+[ext_resource path="res://Enemy/Boss 1 - Brener - Death 9.png" type="Texture" id=21]
+[ext_resource path="res://Enemy/Boss 1 - Brener - Death 1.png" type="Texture" id=22]
+[ext_resource path="res://Enemy/Boss 1 - Brener - Death 2.png" type="Texture" id=23]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 5 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 4.0
+}, {
+"frames": [ ExtResource( 22 ), ExtResource( 23 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 17 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 18 ) ],
+"loop": true,
+"name": "Death",
+"speed": 3.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "Jump",
+"speed": 3.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "Fall",
+"speed": 3.0
+}, {
+"frames": [ ExtResource( 12 ) ],
+"loop": true,
+"name": "Stun",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "Dmg",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 25.0
+height = 15.0
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 27.0
+height = 16.0
+
+[sub_resource type="CapsuleShape2D" id=4]
+radius = 4.0
+height = 40.0
+
+[node name="KinematicBody2D" type="KinematicBody2D"]
+collision_layer = 1024
+collision_mask = 2
+script = ExtResource( 10 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 4.5625, -30.1495 )
+scale = Vector2( 2.38587, 2.38587 )
+frames = SubResource( 1 )
+animation = "Walk"
+playing = true
+
+[node name="hitbox" type="CollisionShape2D" parent="."]
+position = Vector2( 6, -24 )
+shape = SubResource( 2 )
+
+[node name="Dmg player" type="Area2D" parent="."]
+script = ExtResource( 11 )
+
+[node name="dmg_hitbox" type="CollisionShape2D" parent="Dmg player"]
+modulate = Color( 0.0627451, 0.721569, 0.352941, 1 )
+position = Vector2( 6, -25 )
+shape = SubResource( 3 )
+
+[node name="ATK_Range" type="RayCast2D" parent="."]
+position = Vector2( 6, 0 )
+rotation = 1.5708
+scale = Vector2( 1, 1.5 )
+enabled = true
+
+[node name="ATK_Range2" type="RayCast2D" parent="."]
+rotation = -1.5708
+scale = Vector2( 1, 1.5 )
+enabled = true
+
+[node name="take_dmg" type="Area2D" parent="."]
+script = ExtResource( 13 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="take_dmg"]
+position = Vector2( 6, -38 )
+rotation = 1.5708
+shape = SubResource( 4 )

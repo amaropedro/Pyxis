@@ -1,0 +1,51 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://HUD.tscn" type="PackedScene" id=2]
+[ext_resource path="res://platform.tscn" type="PackedScene" id=3]
+[ext_resource path="res://spawnground.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/bg2.png" type="Texture" id=5]
+[ext_resource path="res://The Lula.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Enemy/lulahp.png" type="Texture" id=7]
+[ext_resource path="res://lulahp.gd" type="Script" id=8]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 1024, 600 )
+
+[node name="bg2" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( -96, -160 )
+scale = Vector2( 2.96494, 4.14184 )
+texture = ExtResource( 5 )
+
+[node name="HUD" parent="." instance=ExtResource( 2 )]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureProgress" type="TextureProgress" parent="CanvasLayer"]
+margin_left = 110.0
+margin_top = 544.0
+margin_right = 910.0
+margin_bottom = 550.0
+max_value = 25.0
+value = 25.0
+texture_progress = ExtResource( 7 )
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, -14 )
+
+[node name="spawn" parent="." instance=ExtResource( 4 )]
+
+[node name="platform" parent="spawn" instance=ExtResource( 3 )]
+position = Vector2( 0, 2 )
+collision_layer = 3
+
+[node name="The Lula" parent="." instance=ExtResource( 6 )]
+position = Vector2( -283, -48 )
